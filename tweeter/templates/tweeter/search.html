@@ -1,0 +1,35 @@
+{% load staticfiles %}
+<link rel="stylesheet" href="{% static 'tweeter/style.css' %}"/>
+
+<h1>Tweet Analyzer</h1>
+<h3>Escolha as coordenadas X e Y para buscar Tweets</h3>
+
+<form method="post" >
+    {% csrf_token %}
+    {{ form.as_p }}
+    <br><input type="submit" value="Buscar">
+</form>
+<br>
+
+{% if lista %}
+    <table>
+        <tr>
+            <th>User</th>
+            <th>Data</th>
+            <th>Texto</th>
+        </tr>
+
+        {% for t in lista %}
+            <tr>
+                <td>{{ t.tweet_user }}</td>
+                <td>{{ t.tweet_date }}</td>
+                <td>{{ t.tweet_text }}</td>
+            </tr>
+        {% endfor %}
+
+    </table>
+{% endif %}
+
+<br/>
+<br/>
+<a href="{% url 'tweeter:report' %}">Pagina de Relatorios</a>

@@ -1,0 +1,47 @@
+{% load staticfiles %}
+<link rel="stylesheet" href="{% static 'tweeter/style.css' %}"/>
+<h1>Tweet Analyzer</h1>
+<h3>Escolha intervalo de dias para analise</h3>
+<br />
+<form method="post" >
+    {% csrf_token %}
+    {{ form1.as_p }}
+    <br><input type="submit" value="Buscar">
+</form>
+<br />
+{% if result %}
+    <table>
+        <tr>
+            <th>Dimensão</th>
+            <th>N Tweets</th>
+            <th>N Chars</th>
+            <th>N Words</th>
+            <th>Top 3 Words</th>
+        </tr>
+
+        {% for t in result %}
+            <tr>
+                {% if dimensao == "data" %}
+                    <td>{{ t.data }}</td>
+                {% endif %}
+
+                {% if dimensao == "user" %}
+                    <td>{{ t.user }}</td>
+                {% endif %}
+
+                {% if dimensao == "local" %}
+                    <td>{{ t.cidade }}</td>
+                {% endif %}
+
+                <td>{{ t.ntweets }}</td>
+                <td>{{ t.nchars}}</td>
+                <td>{{ t.nwords}}</td>
+                <td>{{ t.top3wrds }}</td>
+            </tr>
+        {% endfor %}
+
+    </table>
+{% endif %}
+<br />
+<a href="{% url 'tweeter:search' %}">Pagina de Busca</a>
+
