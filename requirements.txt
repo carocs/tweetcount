@@ -3,4 +3,5 @@ Django==1.9.1
 gunicorn==19.4.5
 psycopg2==2.6.1
 whitenoise==2.0.6
+python-dateutil==2.4.2
 python-twitter==2.2
